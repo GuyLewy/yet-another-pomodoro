@@ -11,6 +11,10 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        input: {
+          background: "var(--input-background)",
+          foreground: "var(--input-foreground)",
+        },
       },
     },
   },

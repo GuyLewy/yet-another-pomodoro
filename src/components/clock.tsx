@@ -1,21 +1,25 @@
 "use client";
 import { useState, useEffect } from "react";
 
-export default function Clock() {
+export default function Clock({ timings }: { timings: number[] }) {
 	/**
 	 * States:
 	 * 0: Timer
-	 * 1: Break
+	 * 1: Short Break
+	 * 2: Long Break
 	 */
 	const [state, setState] = useState(0);
 	const [started, setStarted] = useState(false);
 	const [paused, setPaused] = useState(false);
 	const [time, setTime] = useState(Date.now());
-	const [timings, setTimings] = useState([25, 0.1, 0]);
 
-	const [endTime, setEndTime] = useState<number>(
+	const [endTime, setEndTime] = useState(
 		timings[state] * 60 * 1000 + Date.now()
 	);
+
+	if(!started && endTime !== timings[state] * 60 * 1000 + time) {
+		setEndTime(timings[state] * 60 * 1000 + time);
+	}
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -34,7 +38,7 @@ export default function Clock() {
 		setEndTime(timings[state] * 60 * 1000 + Date.now());
 	}
 
-	if (!(timeDiff === null) && timeDiff < 0) {
+	if (timeDiff <= 0) {
 		timerEnd();
 	}
 
@@ -69,7 +73,7 @@ export default function Clock() {
 	}
 
 	return (
-		<div className="w-full h-full box-border flex items-center flex-col justify-center max-w-[700px]">
+		<div className="w-1/2 h-full box-border flex items-center flex-col justify-center max-w-[700px]">
 			<h1 className="w-full text-[10em] text-center m-3 box-border">
 				{String(Math.floor((timeDiff || 0) / 1000 / 60)).padStart(
 					2,

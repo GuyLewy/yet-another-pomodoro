@@ -5,12 +5,16 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --input-background: #f3f4f5;
+  --input-foreground: #0a0b0c;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #232428;
     --foreground: #ededed;
+    --input-background: #151515;
+    --input-foreground: #f5f2fa;
   }
 }
 
