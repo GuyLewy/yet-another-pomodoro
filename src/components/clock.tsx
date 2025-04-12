@@ -1,4 +1,5 @@
 "use client";
+import useLocalStorage from "@/hooks/useLocalStorage";
 import { useState, useEffect } from "react";
 
 export default function Clock({ timings }: { timings: number[] }) {
@@ -8,12 +9,13 @@ export default function Clock({ timings }: { timings: number[] }) {
 	 * 1: Short Break
 	 * 2: Long Break
 	 */
-	const [state, setState] = useState(0);
-	const [started, setStarted] = useState(false);
-	const [paused, setPaused] = useState(false);
+	const [state, setState] = useLocalStorage("state", 0);
+	const [started, setStarted] = useLocalStorage("started", false);
+	const [paused, setPaused] = useLocalStorage("paused", false);
 	const [time, setTime] = useState(Date.now());
 
-	const [endTime, setEndTime] = useState(
+	const [endTime, setEndTime] = useLocalStorage(
+		"endTime",
 		timings[state] * 60 * 1000 + Date.now()
 	);
 

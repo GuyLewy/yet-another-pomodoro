@@ -1,10 +1,10 @@
 "use client";
 import Clock from "@/components/clock";
 import Settings from "@/components/settings";
-import { useState } from "react";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 export default function Home() {
-	const [timings, setTimings] = useState([25, 5, 0]);
+	const [timings, setTimings] = useLocalStorage<number[]>("timings", [25, 5, 0]);
 
 	return (
 		<div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen gap-16 lg:p-6 p-2 font-[family-name:var(--font-geist-sans)]">
