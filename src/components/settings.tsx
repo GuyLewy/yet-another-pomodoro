@@ -8,8 +8,8 @@ export default function Settings({
 	setTimings: React.Dispatch<SetStateAction<number[]>>;
 }) {
 	return (
-		<div className="w-1/4 flex flex-col justify-center p-2">
-			<span className="w-full flex flex-row justify-evenly">
+		<div className="lg:w-1/4 w-full flex flex-col justify-center p-2">
+			<span className="w-full flex flex-row justify-evenly items-end">
 				<DurationInput
 					labelText="Focus"
 					onChange={(value) => {
@@ -52,7 +52,7 @@ function DurationInput({
 	value: number;
 }) {
 	return (
-		<div className="w-[30%] flex flex-col">
+		<div className="w-[30%] flex flex-col h-full">
 			<label htmlFor={labelText} className="text-center">
 				{labelText}
 			</label>

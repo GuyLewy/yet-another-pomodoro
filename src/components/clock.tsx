@@ -17,7 +17,7 @@ export default function Clock({ timings }: { timings: number[] }) {
 		timings[state] * 60 * 1000 + Date.now()
 	);
 
-	if(!started && endTime !== timings[state] * 60 * 1000 + time) {
+	if (!started && endTime !== timings[state] * 60 * 1000 + time) {
 		setEndTime(timings[state] * 60 * 1000 + time);
 	}
 
@@ -73,8 +73,8 @@ export default function Clock({ timings }: { timings: number[] }) {
 	}
 
 	return (
-		<div className="w-1/2 h-full box-border flex items-center flex-col justify-center max-w-[700px]">
-			<h1 className="w-full text-[10em] text-center m-3 box-border">
+		<div className="lg:w-1/2 w-full h-full box-border flex items-center flex-col justify-center max-w-[700px]">
+			<h1 className="w-full lg:text-[10em] text-[23vw] text-center m-3 box-border">
 				{String(Math.floor((timeDiff || 0) / 1000 / 60)).padStart(
 					2,
 					"0"
@@ -86,7 +86,7 @@ export default function Clock({ timings }: { timings: number[] }) {
 				)}
 			</h1>
 
-			<div className="w-3/4 flex flex-row items-center justify-center gap-x-4 text-xl">
+			<div className="lg:w-3/4 w-[90%] flex flex-row items-center justify-center gap-x-4 text-xl">
 				<button
 					className="w-full bg-foreground text-background p-3 rounded-md"
 					onClick={
