@@ -2,7 +2,13 @@
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { useState, useEffect } from "react";
 
-export default function Clock({ timings }: { timings: number[] }) {
+export default function Clock({
+	timings,
+	longBreakInterval,
+}: {
+	timings: number[];
+	longBreakInterval: number;
+}) {
 	/**
 	 * States:
 	 * 0: Timer
@@ -13,7 +19,10 @@ export default function Clock({ timings }: { timings: number[] }) {
 	const [started, setStarted] = useLocalStorage("started", false);
 	const [paused, setPaused] = useLocalStorage("paused", false);
 	const [time, setTime] = useState(Date.now());
-
+	const [shortBreakCounter, setShortBreakCounter] = useLocalStorage(
+		"shortBreakCounter",
+		0
+	);
 	const [endTime, setEndTime] = useLocalStorage(
 		"endTime",
 		timings[state] * 60 * 1000 + Date.now()
@@ -35,7 +44,19 @@ export default function Clock({ timings }: { timings: number[] }) {
 	const timeDiff = endTime - time;
 
 	function timerEnd() {
-		setState((state + 1) % 2);
+		if (state === 1) {
+			setShortBreakCounter(shortBreakCounter + 1);
+		}
+
+		if (longBreakInterval !== 0 && state === 0 && shortBreakCounter >= longBreakInterval) {
+			setState(2);
+			setShortBreakCounter(0);
+		} else if (state === 2) {
+			setState(0);
+		} else {
+			setState((state + 1) % 2);
+		}
+
 		setStarted(false);
 		setEndTime(timings[state] * 60 * 1000 + Date.now());
 	}
