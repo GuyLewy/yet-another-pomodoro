@@ -1,3 +1,4 @@
+"use client"
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
@@ -16,8 +17,13 @@ export default function useLocalStorage<T extends Exclude<unknown, Function>>(
 	});
 
 	useEffect(() => {
-		localStorage.setItem(key, JSON.stringify(value));
-	}, [key, value]);
+		if (typeof window === "undefined") {
+			console.log("No window")
+			return;
+		}
+
+		window.localStorage.setItem(key, JSON.stringify(value));
+	}, [initialValue, key, value]);
 
 	return [value, setValue];
 }
